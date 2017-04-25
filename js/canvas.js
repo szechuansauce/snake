@@ -1,18 +1,28 @@
-var s;
-var scl = 20;
+var   s,
+      scl = 20,
+      food,
+      spd = 0.5,
+      score = 0,
+      message = "Snek snek snek";
 
-var food;
+//meta control
+$(function() {
+    $('#score').html(score);
+    $('#message').html(message);
+});
 
+//canvas setup
 function setup() {
-   createCanvas(600, 600);
+   createCanvas(scl*40, scl*40);
    s = new Snake();
-   frameRate(10);
+   frameRate(30);
    r = random(150, 255);
    g = random(150, 255);
    b = random(150, 255);
    pickLocation();
 }
 
+//canvas setup
 function pickLocation() {
    r = random(180, 240);
    g = random(180, 240);
@@ -45,12 +55,12 @@ function draw() {
 
 function keyPressed() {
    if (keyCode === UP_ARROW) {
-      s.dir(0, -1);
+      s.dir(0, -spd);
    } else if (keyCode === DOWN_ARROW) {
-      s.dir(0, 1);
+      s.dir(0, spd);
    } else if (keyCode === RIGHT_ARROW) {
-      s.dir(1, 0);
+      s.dir(spd, 0);
    } else if (keyCode === LEFT_ARROW) {
-      s.dir(-1, 0);
+      s.dir(-spd, 0);
    }
 }

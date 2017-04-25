@@ -2,6 +2,7 @@ body {
    background: #222222;
    display: flex;
    align-items: center;
+   flex-direction: column-reverse;
    justify-content: center;
    margin: 0;
    position: absolute;
@@ -9,6 +10,28 @@ body {
     left: 0;
     right: 0;
     bottom: 0;
+}
+#meta {
+   width: 800px;
+   height: 50px;
+   background: #fff;
+   display: flex;
+   flex-direction: row;
+   justify-content: space-between;
+   align-items: center;
+   position: relative;
+}
+#score,
+#message {
+   font-size: 40px;
+   font-weight: bold;
+   font-family: monospace;
+   opacity: 1;
+   padding: 0 15px;
+   transition: opacity 0.1s;
+}
+#message.hide {
+   opacity: 0;
 }
 canvas {
    background: #222222;

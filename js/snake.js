@@ -1,15 +1,61 @@
 function Snake() {
   this.x = 0;
   this.y = 0;
-  this.xspeed = 1;
+  this.xspeed = spd;
   this.yspeed = 0;
   this.total = 0;
   this.tail = [];
 
+  function updateMessage(state) {
+      function run() {
+        $('#message').addClass('hide');
+        setTimeout(refresh, 200);
+        function refresh() {
+           $('#message').html(message).removeClass('hide');
+        }
+        function remove() {
+           $('#message').html(message).removeClass('hide');
+        }
+      }
+      if (state === 'dead') {
+         message = 'you died!';
+         run();
+         setTimeout(deadUpdate, 650);
+         function deadUpdate() {
+            message = 'go snek!';
+            run();
+         }
+      } else if (state === 'eat') {
+         var eatChance;
+         setEatChance = function(min, max) {
+            eatChance = Math.random();
+         }
+         setEatChance();
+         if (eatChance < 0.25) {
+            message = 'SNEK';
+         } else if (eatChance > 0.25 && eatChance < 0.5) {
+            message = 'SNEEEEEEEK';
+         } else if (eatChance > 0.5 && eatChance < 0.75) {
+            message = 'SNEK KWEEN';
+         } else {
+            message = 'YASS';
+         }
+         run();
+      } else if (state === 'restart') {
+         message = 'go snek!';
+         run();
+      }
+   };
+
   this.eat = function(pos) {
     var d = dist(this.x, this.y, pos.x, pos.y);
-    if (d < 1) {
+    if (d < scl) {
       this.total++;
+      score++;
+      $('#score').html(score);
+      spd = spd + 0.006;
+      updateMessage('eat');
+      console.log(message);
       return true;
     } else {
       return false;
@@ -27,10 +73,16 @@ function Snake() {
       var d = dist(this.x, this.y, pos.x, pos.y);
       if (d < 1) {
         console.log('starting over');
+        updateMessage('dead');
         this.total = 0;
         this.tail = [];
         this.x = scl*4;
         this.y = scl*4;
+        spd = 0.5;
+        score = 0;
+        $(function() {
+            $('#score').html(score);
+        });
         pickLocation();
       }
     }
