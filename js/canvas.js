@@ -1,32 +1,37 @@
 var   s,
-      scl = 20,
       food,
-      spd = 0.5,
-      score = 0,
-      message = "Snek snek snek";
+      spd = 0.25;
+      width = window.innerWidth,
+      height = window.innerHeight,
+      scl = 40;
+      nose = 'right';
 
-//meta control
-$(function() {
-    $('#score').html(score);
-    $('#message').html(message);
-});
+// function setScale() {
+//    if (width > height) {
+//       scl = (width / 40);
+//    } else {
+//       scl = (height / 40);
+//    }
+// }
+// setScale();
+// setup();
 
 //canvas setup
 function setup() {
-   createCanvas(scl*40, scl*40);
+   createCanvas(window.innerWidth, window.innerHeight);
    s = new Snake();
-   frameRate(30);
-   r = random(150, 255);
-   g = random(150, 255);
-   b = random(150, 255);
+   frameRate(60);
+   r = random(100, 180);
+   g = random(100, 180);
+   b = random(100, 180);
    pickLocation();
 }
 
 //canvas setup
 function pickLocation() {
-   r = random(180, 240);
-   g = random(180, 240);
-   b = random(180, 240);
+   r = random(100, 180);
+   g = random(100, 180);
+   b = random(100, 180);
    fill(r, g, b);
    var cols = floor(width/scl);
    var rows = floor(height/scl);
@@ -49,18 +54,29 @@ function draw() {
    s.update();
    s.show();
 
-   fill(r, g, b);
+   stroke(0, 0, 0);
    ellipse(food.x+(scl/2), food.y+(scl/2), scl, scl);
+   ellipse(0, 0, 0);
 }
 
 function keyPressed() {
-   if (keyCode === UP_ARROW) {
+   if ((keyCode === DOWN_ARROW) || (keyCode === 83)) {
+      if (nose != 'up') {
+         s.dir(spd, 0);
+         nose = 'down';
+      };
+   };
+   if (((keyCode === UP_ARROW) || (keyCode === 87)) && (nose != 'down'))  {
       s.dir(0, -spd);
-   } else if (keyCode === DOWN_ARROW) {
+      nose = 'up';
+   } else if (((keyCode === DOWN_ARROW) || (keyCode === 83)) && (nose != 'up')) {
       s.dir(0, spd);
-   } else if (keyCode === RIGHT_ARROW) {
+      nose = 'down';
+   } else if (((keyCode === RIGHT_ARROW) || (keyCode === 68)) && (nose != 'left')) {
       s.dir(spd, 0);
-   } else if (keyCode === LEFT_ARROW) {
+      nose = 'right';
+   } else if (((keyCode === LEFT_ARROW) || (keyCode === 65)) && (nose != 'right')) {
       s.dir(-spd, 0);
+      nose = 'left';
    }
 }

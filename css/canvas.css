@@ -1,5 +1,5 @@
 body {
-   background: #222222;
+   background: #ffffff;
    display: flex;
    align-items: center;
    flex-direction: column-reverse;
@@ -12,27 +12,68 @@ body {
     bottom: 0;
 }
 #meta {
-   width: 800px;
+   width: 100%;
    height: 50px;
-   background: #fff;
    display: flex;
-   flex-direction: row;
+   flex-direction: column;
    justify-content: space-between;
-   align-items: center;
+   align-items: flex-start;
+   opacity: 0.75;
    position: relative;
+   color: white;
+   top: -285px;
+   background: none;
 }
 #score,
-#message {
-   font-size: 40px;
+#message,
+#lives,
+#highscore {
+   font-size: 70px;
    font-weight: bold;
    font-family: monospace;
-   opacity: 1;
+   max-width: 10000px;
    padding: 0 15px;
-   transition: opacity 0.1s;
+   margin-bottom: 10px;
+   padding-left: 20px;
+}
+#score,
+#lives,
+#highscore {
+   padding-left: 25px;
 }
 #message.hide {
-   opacity: 0;
+   font-size: 0;
 }
 canvas {
    background: #222222;
+}
+#message {
+   position: absolute;
+   right: 5px;
+   bottom: -280px;
+   color: #fff;
+   opacity: 0.5;
+   font-size: 60px;
+   text-align: right;
+}
+#message p {
+   margin-top: 0;
+   margin-bottom: 10px;
+   max-height: 0;
+   overflow: hidden;
+   transition: all 0.8s;
+}
+#message p.raise {
+   max-height: 100px;
+}
+#highscore {
+}
+
+#meta .fa {
+   padding-right: 8px;
+   font-size: 60px;
+   padding-bottom: 3px;
+}
+
+.raise {
 }
